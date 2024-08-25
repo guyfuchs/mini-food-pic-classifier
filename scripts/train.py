@@ -8,7 +8,7 @@ import torch
 
 from torchvision import transforms
 
-import data_setup, engine, model_builder, utils
+import get_data, data_setup, engine, model_builder, utils
 
 # Set random seeds
 torch.manual_seed(42)
@@ -20,6 +20,17 @@ BATCH_SIZE = 32
 HIDDEN_UNITS = 10
 LEARNING_RATE = 0.001
 
+# Project path is the parent of this script folder
+project_path = os.path.dirname(os.path.abspath(__file__))
+
+# Download data and get it paths
+train_dir, test_dir = get_data.download_data(
+                        project_path = project_path,
+                        data_subpath = "pizza_steak_sushi",
+                        file_name = "pizza_steak_sushi.zip",
+                        source_url = "https://github.com/mrdbourke/pytorch-deep-learning/raw/main/data/pizza_steak_sushi.zip",
+                        data_sesc = "pizza, steak, sushi data"
+                    )
 # Setup directories
 train_dir = "data/pizza_steak_sushi/train"
 test_dir = "data/pizza_steak_sushi/test"
